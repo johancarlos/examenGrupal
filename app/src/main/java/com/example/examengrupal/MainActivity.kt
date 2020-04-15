@@ -1,15 +1,12 @@
 package com.example.examengrupal
 
 import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,13 +46,13 @@ class MainActivity : AppCompatActivity() {
     private fun playGame(cellID: Int, buSelected: Button) {
         if(activePlayer==1){
             buSelected.text = "X"
-            buSelected.setBackgroundColor(Color.parseColor("#009193"))
+            buSelected.setBackgroundColor(Color.parseColor("#F30808"))
             player1.add(cellID)
             activePlayer = 2
             AutoPlay()
         }else{
             buSelected.text = "O"
-            buSelected.setBackgroundColor(Color.parseColor("#FF9300"))
+            buSelected.setBackgroundColor(Color.parseColor("#2AF606"))
             player2.add(cellID)
             activePlayer = 1
         }
@@ -119,32 +116,39 @@ class MainActivity : AppCompatActivity() {
             winner=2
         }
 
-
         if( winner != -1){
             if (winner==1){
                 Toast.makeText(this," Player 1  win the game", Toast.LENGTH_LONG).show()
                 val alertDialog = AlertDialog.Builder(this)
                     .setTitle("Ganador!!!")
-                    .setMessage("Gracias por participar Jugador1 {Name}!")
+                    .setMessage("Gracias por participar: " + textView2.text.toString() +"!")
                     .setPositiveButton("Reiniciar", null)
                             .setCancelable(false)
                     .create()
                 alertDialog.show()
+                val positiveButton: Button =
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                positiveButton.setOnClickListener {
+                    recreate();
+                }
             }
-
-            }else
-                 if(winner == 2){
+            if(winner == 2){
                 Toast.makeText(this," Player 2  win the game", Toast.LENGTH_LONG).show()
-                    val alertDialog = AlertDialog.Builder(this)
-                        .setTitle("Ganador!!!")
-                        .setMessage("Gracias por participar Jugador2 {Name}!")
-                        .setPositiveButton("Reiniciar",null)
-                        .setCancelable(false)
-                        .create()
-                    alertDialog.show()
+                val alertDialog = AlertDialog.Builder(this)
+                    .setTitle("Ganador!!!")
+                    .setMessage("Gracias por participar: " + textView4.text.toString() +"!")
+                    .setPositiveButton("Reiniciar",null)
+                    .setCancelable(false)
+                    .create()
+                alertDialog.show()
+                val positiveButton: Button =
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                positiveButton.setOnClickListener {
+                    recreate();
+                }
             }
-
         }
+    }
 
     private fun AutoPlay() {
         val emptyCells=ArrayList<Int>()
